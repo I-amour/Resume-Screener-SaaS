@@ -4,6 +4,8 @@
 
 A modern, AI-powered resume screening application built with React, FastAPI, and OpenAI. This SaaS solution provides intelligent resume analysis with scoring, detailed feedback, and hiring recommendations.
 
+### Check it out here: https://i-amour.github.io/Resume-Screener-SaaS/
+
 ---
 
 ## ✨ Features
