@@ -8,6 +8,10 @@ A modern, AI-powered resume screening application built with React, FastAPI, and
 
 ---
 
+## ⚠️ Development Status
+
+This project is **still in active development**. Currently, the OpenAI API key used by the backend is mine (the developer's), and it's on the free version, which comes with its own limitations. However, this will change in future releases. Also, the backend server is currently hosted over Render, on the free platform (I'm a student lol, funds are low) so it might take time to complete your request. But! You can definetly understand the concept of the web app.
+
 ## ✨ Features
 
 * 🎯 **AI-Powered Analysis:** Intelligent resume screening using OpenAI's GPT models
@@ -44,11 +48,8 @@ A modern, AI-powered resume screening application built with React, FastAPI, and
 
 ---
 
-## ⚠️ Development Status
 
-This project is **still in active development**. Currently, the OpenAI API key used by the backend is mine (the developer's), but this will change in future releases.
-
-**Upcoming TODO features:**
+## **Upcoming TODO features:**
 
 * Require users to provide their own OpenAI API key to use the service
 * Implement payment/subscription plans to enable paid usage and manage costs
