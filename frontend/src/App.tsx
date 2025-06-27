@@ -41,7 +41,7 @@ interface Resume {
   uploadedAt: string;
 }
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://resume-backend-eo9x.onrender.com';
 
 function App() {
   const [resumes, setResumes] = useState<Resume[]>([]);
