@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDropzone } from 'react-dropzone';
 import { 
@@ -11,12 +11,10 @@ import {
   Mail, 
   Phone,
   MapPin,
-  Calendar,
   Award,
   Briefcase,
   GraduationCap,
   Star,
-  Download,
   Trash2
 } from 'lucide-react';
 import axios from 'axios';
@@ -46,18 +44,28 @@ const API_BASE = 'https://resume-backend-eo9x.onrender.com';
 function App() {
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Wake the Render free-tier server as soon as the page loads,
+  // so it's (hopefully) awake by the time someone uploads.
+  useEffect(() => {
+    axios.get(`${API_BASE}/docs`, { timeout: 90000 }).catch(() => {});
+  }, []);
   const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     setIsUploading(true);
+    setUploadError(null);
     
     for (const file of acceptedFiles) {
       const formData = new FormData();
       formData.append('file', file);
       
       try {
+        // No manual Content-Type: the browser adds the multipart boundary itself.
+        // Timeout stops the spinner hanging forever if the server is down.
         const response = await axios.post(`${API_BASE}/upload-resume`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          timeout: 90000
         });
         
         const newResume: Resume = {
@@ -76,6 +84,13 @@ function App() {
         
       } catch (error) {
         console.error('Upload failed:', error);
+        if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+          setUploadError('The server took too long to respond. It may be starting up, so try again in a minute.');
+        } else if (axios.isAxiosError(error) && error.response) {
+          setUploadError(`Upload failed (${error.response.status}). Check the server logs on Render.`);
+        } else {
+          setUploadError("Couldn't reach the server. It may be offline.");
+        }
       }
     }
     
@@ -105,9 +120,13 @@ function App() {
         } else if (attempts < maxAttempts) {
           attempts++;
           setTimeout(poll, 2000);
+        } else {
+          // Give up after maxAttempts instead of showing "processing" forever
+          setResumes(prev => prev.map(r => r.id === resumeId ? { ...r, status: 'error' } : r));
         }
       } catch (error) {
         console.error('Polling failed:', error);
+        setResumes(prev => prev.map(r => r.id === resumeId ? { ...r, status: 'error' } : r));
       }
     };
     
@@ -211,6 +230,12 @@ function App() {
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600 mr-2"></div>
                     Uploading...
                   </div>
+                </div>
+              )}
+
+              {uploadError && (
+                <div className="mt-4 text-center text-sm text-rose-600">
+                  {uploadError}
                 </div>
               )}
             </motion.div>
