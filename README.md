@@ -1,5 +1,4 @@
 
-
 # 🚀 AI-Powered Resume Screener SaaS
 
 A modern, AI-powered resume screening application built with React, FastAPI, and OpenAI. This SaaS solution provides intelligent resume analysis with scoring, detailed feedback, and hiring recommendations.
@@ -8,22 +7,21 @@ A modern, AI-powered resume screening application built with React, FastAPI, and
 
 ---
 
-## ⚠️ Development Status
+## 🔑 Bring your own OpenAI key
 
-This project is **still in active development**. Currently, the OpenAI API key used by the backend is mine (the developer's), and it's on the free version, which comes with its own limitations. However, this will change in future releases. Also, the backend server is currently hosted over Render, on the free platform (I'm a student lol, funds are low) so it might take time to complete your request. But! You can definetly understand the concept of the web app.
+Add your own OpenAI API key in the app (top right) and everything runs in your browser: your CV is read on your device and sent straight to OpenAI. It never touches my server, and you get instant results plus job description matching. You can choose whether the key is remembered on your device.
+
+No key? The app falls back to a free demo server on Render, which can take up to a minute to wake up.
 
 ## ✨ Features
 
-* 🎯 **AI-Powered Analysis:** Intelligent resume screening using OpenAI's GPT models
-* 📊 **Scoring System:** Automatic scoring from 0-100 with detailed breakdown
-* 🎨 **Modern UI:** Beautiful, responsive interface with pastel colors and smooth animations
-* 📄 **Multi-format Support:** Upload PDF, DOC, and DOCX files seamlessly
-* ⚡ **Real-time Processing:** Background processing with real-time status updates
-* 🗄️ **Database Storage:** PostgreSQL database for persistent resume and user data storage
-* 🔒 **Type Safety:** Full TypeScript support on the frontend for robust development
-* 📱 **Responsive Design:** Works perfectly across desktop, tablet, and mobile devices
-
----
+- 🎯 **Job description matching:** paste a job ad to get a match score, the keywords you already cover, the ones you're missing, and tailoring tips
+- 📊 **Detailed scoring:** overall score plus impact, clarity, skills and ATS formatting scores
+- ✍️ **Bullet point rewrites:** your three weakest bullet points rewritten with stronger action verbs (with [X] placeholders so nothing is made up)
+- 🔒 **Private by design:** PDF and DOCX files are parsed in the browser with pdf.js and mammoth
+- 🕘 **History:** past reports stay after a refresh, stored only on your device
+- ⬇️ **Export:** download or copy any report as Markdown
+- 📱 **Responsive** across desktop, tablet and mobile
 
 ## 🛠️ Tech Stack
 
@@ -34,6 +32,7 @@ This project is **still in active development**. Currently, the OpenAI API key u
 * Tailwind CSS for styling
 * Framer Motion for smooth animations
 * React Dropzone for file uploads
+* pdf.js and mammoth for in-browser PDF and DOCX parsing
 * Lucide React for icons
 * Axios for API communication
 
@@ -48,6 +47,14 @@ This project is **still in active development**. Currently, the OpenAI API key u
 
 ---
 
+
+## Deploying
+
+```bash
+cd frontend
+npm install
+npm run deploy   # builds and publishes to GitHub Pages
+```
 
 ## **Upcoming TODO features:**
 
@@ -76,5 +83,3 @@ Feel free to open issues or pull requests to contribute. For questions, reach ou
 
 **Thank you for checking out this project!**
 If you'd like to support the development, star the repo and share your feedback.
-
-
